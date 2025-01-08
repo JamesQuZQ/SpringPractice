@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="class1" class="com.test.spring6.iocxml.BasicClass">
+        <property name="name" value="Teacher1"/>
+        <property name="age" value="1"/>
+    </bean>
+
+    <bean id="class2" class="com.test.spring6.iocxml.BasicClass">
+        <property name="name" value="Teacher2"/>
+        <property name="age" value="2"/>
+    </bean>
+
+    <bean id="array" class="com.test.spring6.iocxml.ClassWithArray">
+        <property name="name" value="Student1"/>
+        <property name="teacher" ref="class1"/>
+        <property name="hobbies">
+            <array>
+                <value>basketball</value>
+                <value>music</value>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="map" class="com.test.spring6.iocxml.ClassWithMap">
+        <property name="classes">
+            <map>
+                <entry key="1" value-ref="class1"/>
+                <entry key="2" value-ref="class2"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--  We can use the util:list / util:map tag to create instances of these types, which can then be used in other classes. -->
+    <!--  Note that we have to add to the namespace declaration.  -->
+    <util:list id="classes">
+        <ref bean="class1"/>
+        <ref bean="class2"/>
+    </util:list>
+
+
+    <!--  p namespace injection, easier way for xml value injection  -->
+    <bean id="class3" class="com.test.spring6.iocxml.BasicClass"
+    p:name="class3" p:age="3">
+    </bean>
+</beans>
